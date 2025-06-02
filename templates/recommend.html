@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Recommender System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar-custom {
+            background-color: red;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card img {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .card-body p,
+        .card-body h4 {
+            margin: 0.3rem 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 2rem 0 1rem;
+            text-align: center;
+        }
+
+        .form-control {
+            background-color: #1e1e1e;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        .form-control:focus {
+            background-color: #1e1e1e;
+            color: white;
+            border-color: #ff5252;
+            box-shadow: 0 0 0 0.2rem rgba(255, 82, 82, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">My Book Recommender</a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/recommend">Recommend</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="container my-5">
+        <h1>Recommend Books</h1>
+        <form action="/recommend_books" method="post" class="mb-5">
+            <input name="user_input" type="text" class="form-control mb-3" placeholder="Enter a book or author...">
+            <input type="submit" class="btn btn-warning btn-lg" value="Recommend">
+        </form>
+
+        <!-- Results Section -->
+        <div class="row g-4">
+            {% if data %}
+                {% for i in data %}
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="{{i[2]}}" alt="Book Cover">
+                            <div class="card-body">
+                                <h4 class="text-white">{{i[0]}}</h4>
+                                <p class="text-white">{{i[1]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
